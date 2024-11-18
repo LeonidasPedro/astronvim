@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # astronvim
 Meus plugins do nvim maneiro
 =======
@@ -36,4 +35,3 @@ git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim
 ```shell
 nvim
 ```
->>>>>>> 0d81485 (initial commit)
