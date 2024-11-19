@@ -21,7 +21,11 @@ return {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
+        allow_filetypes = { 
+          "ruby",
+          "typescript",
+          "javascript"
+          -- enable format on save for specified filetypes only
           -- "go",
         },
         ignore_filetypes = { -- disable format on save for specified filetypes
@@ -39,12 +43,33 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
+      "solargraph", -- Adiciona o LSP para Ruby on Rails
+      "tsserver"
       -- "pyright"
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
+      solargraph = {
+        settings = {
+          solargraph = {
+            diagnostics = true,
+            completion = true,
+            formatting = true,
+            useBundler = true,
+          },
+        },
+      },
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      tsserver = {
+        settings = {
+          documentFormatting = false,
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
+      },
     },
     -- customize how language servers are attached
     handlers = {

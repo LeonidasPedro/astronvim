@@ -6,8 +6,29 @@
 return {
 
   -- == Examples of Adding Plugins ==
+  {
+    "andweeb/presence.nvim",
+    config = function()
+      require("presence"):setup({
+        -- Optional configurations
+        auto_update         = true,       -- Atualiza automaticamente o status
+        neovim_image_text   = "Neovim",   -- Texto da imagem que será exibida no Discord (neovim por padrão)
+        main_image          = "file",     -- 'file', 'neovim' ou 'logo' (padrão: 'file')
+        debounce_timeout    = 10,         -- Tempo em segundos para atualizar o status
+        enable_line_number  = false,      -- Mostrar números de linha no Discord
+        blacklist           = {},         -- Lista de diretórios a serem ignorados
+        buttons             = true,       -- Exibe botões personalizados (link ou URL de convite, etc.)
+        editing_text = function(filename)
+          local ext = filename:match("^.+(%..+)$")
+          if not ext then
+            return "Editando algo (bugou o nvim)"
+          end
 
-  "andweeb/presence.nvim",
+          return "Editando um arquivo " ..ext
+        end,
+      })
+    end
+  },
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
