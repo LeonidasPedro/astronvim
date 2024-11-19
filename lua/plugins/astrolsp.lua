@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -21,10 +19,10 @@ return {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { 
+        allow_filetypes = {
           "ruby",
           "typescript",
-          "javascript"
+          "javascript",
           -- enable format on save for specified filetypes only
           -- "go",
         },
@@ -41,15 +39,13 @@ return {
       --   return true
       -- end
     },
-    -- enable servers that you already have installed without mason
     servers = {
-      "solargraph", -- Adiciona o LSP para Ruby on Rails
-      "tsserver"
-      -- "pyright"
+      "solargraph",
+      "ts_ls",
     },
-    -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
+      -- Melhor que configurar a versão antiga do solargraph, é escolher uma versão nova do ruby na raiz do sistema e instalar o mais recente.
       solargraph = {
         settings = {
           solargraph = {
@@ -60,15 +56,19 @@ return {
           },
         },
       },
-      -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
-      tsserver = {
+      clangd = {
+        capabilities = {
+          offsetEncoding = "utf-8",
+        },
+      },
+      ts_ls = {
         settings = {
           documentFormatting = false,
         },
         on_attach = function(client, bufnr)
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
-        end
+        end,
       },
     },
     -- customize how language servers are attached
